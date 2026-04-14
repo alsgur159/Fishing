@@ -73,3 +73,16 @@ crashlytics-build.properties
 
 # .claude 폴더 (Claude Code 설정)
 /.claude/
+
+# VS Code
+.vscode/
+
+# 에디터 개인 설정
+/[Aa]ssets/Editor/
+
+# 빌드 관련
+*.exe
+*.x86_64
+*.x86
+*.zip
+*.tar.gz
