@@ -7,7 +7,10 @@ public class ButtonManager : MonoBehaviour
     {
         SceneManager.LoadScene(sceneName);
     }
-
+    public void BackToMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
     public void QuitGame()
     {
     #if UNITY_EDITOR
