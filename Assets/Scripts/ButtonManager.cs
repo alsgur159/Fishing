@@ -10,6 +10,7 @@ public class ButtonManager : MonoBehaviour
     public void BackToMainMenu()
     {
         SceneManager.LoadScene("MainMenu");
+        Debug.Log("Main Menu로 이동");
     }
     public void QuitGame()
     {
