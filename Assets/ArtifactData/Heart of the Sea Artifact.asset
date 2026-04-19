@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ArtifactData
   artifactID: art_extralife
   artifactName: Heart of the Sea
-  icon: {fileID: 0}
+  icon: {fileID: -2080150577745255183, guid: c289fef78b5fe43499d65d55386a68d0, type: 3}
   description: 
   effectType: 4
   effectValue: 1

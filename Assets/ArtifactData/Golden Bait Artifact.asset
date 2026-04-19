@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ArtifactData
   artifactID: art_goldfish
   artifactName: Golden Bait
-  icon: {fileID: 35369880300906487, guid: f147a30de746cb844b9c1688095a1352, type: 3}
+  icon: {fileID: 5658895884049137669, guid: 6fe3c6634de57d9459d016ba4f58e36c, type: 3}
   description: 
   effectType: 2
   effectValue: 0.2
