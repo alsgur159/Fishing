@@ -270,7 +270,7 @@ public class GameManager : MonoBehaviour
     private void GameOver()
     {
         gameOverPanel.SetActive(true);
-        if (finalScoreText != null) finalScoreText.text = $"최종 점수: {totalScore}점";
+        if (finalScoreText != null) finalScoreText.text = $"Final Score: {totalScore}";
     }
 
     private void UpdateUI()
