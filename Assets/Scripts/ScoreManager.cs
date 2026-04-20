@@ -26,8 +26,22 @@ public class ScoreManager : MonoBehaviour
 
     public void AddFish(int count = 1)
     {
-        currentScore += SCORE_PER_FISH * count;
+        int baseScore = SCORE_PER_FISH * count;
+        float bonus = 0f;
+
+        PlayerStat playerStat = FindObjectOfType<PlayerStat>();
+        if (playerStat != null)
+        {
+            bonus = playerStat.scoreBonus;
+        }
+
+        int finalScore = Mathf.RoundToInt(baseScore * (1f + bonus));
+        currentScore += finalScore;
+
+        Debug.Log($"기본 점수: {baseScore}, 보너스: {bonus * 100}%, 최종 점수: {finalScore}");
     }
+
+
     public int GetCurrentScore() => currentScore;
   
     public void SaveRecord()
