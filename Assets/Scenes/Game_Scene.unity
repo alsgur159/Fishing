@@ -326,7 +326,7 @@ MonoBehaviour:
   gameOverPanel: {fileID: 1578603898}
   finalScoreText: {fileID: 1898142163}
   topBarUIParent: {fileID: 514133309}
-  artifactIconPrefab: {fileID: 7186509209995345632, guid: 144ce5ceaa19d1c48903300b1e100f33, type: 3}
+  artifactIconPrefab: {fileID: 7186509209995345632, guid: 096dc31d9def1db49b3b99844d6a102a, type: 3}
 --- !u!4 &194477247
 Transform:
   m_ObjectHideFlags: 0

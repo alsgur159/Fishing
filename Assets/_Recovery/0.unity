@@ -326,7 +326,7 @@ MonoBehaviour:
   gameOverPanel: {fileID: 1578603898}
   finalScoreText: {fileID: 1898142163}
   topBarUIParent: {fileID: 514133309}
-  artifactIconPrefab: {fileID: 2148406135385927905, guid: edf6bb7b3a4d5a845801bd26a8bed6f4, type: 3}
+  artifactIconPrefab: {fileID: 7186509209995345632, guid: 096dc31d9def1db49b3b99844d6a102a, type: 3}
 --- !u!4 &194477247
 Transform:
   m_ObjectHideFlags: 0
@@ -2018,7 +2018,7 @@ SpriteRenderer:
   m_Size: {x: 14, y: 6.63}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
 --- !u!4 &1823407361
 Transform:
