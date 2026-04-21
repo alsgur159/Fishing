@@ -20,7 +20,7 @@ public class ArtifactIconSlot : MonoBehaviour
         }
     }
 
-    public void Init(ArtifactData data, int level)
+    public void Init(ArtifactData data, int level) 
     {
         artifactID = data.artifactID;
         iconImage.sprite = data.icon;

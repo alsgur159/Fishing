@@ -25,7 +25,6 @@ public class GameManager : MonoBehaviour
     public int extraScoreBonus = 0;
     public float scoreCriticalChance = 0f;
 
-    // ���� �̱� Ǯ: ���� 3������ �� �� �������� ����ϴ�.
     private List<ArtifactData> availableArtifacts = new List<ArtifactData>();
 
     [Header("Chest Probability Weights")]
@@ -60,11 +59,10 @@ public class GameManager : MonoBehaviour
         totalScore = 0;
         lives = 3;
 
-        // [���� ����] ���� ���� ���� ������ŭ ��� �߰�
+
         int lifeLevel = GetArtifactLevel("art_extralife");
         lives += lifeLevel;
 
-        // ���� �� UI �ʱ�ȭ
         bonusBarSize = 0f;
         bonusCatchSpeed = 0f;
         highScoreFishChance = 0f;
@@ -76,15 +74,14 @@ public class GameManager : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        // 1. ����� ������(���� 1~3) ��� �ҷ��ͼ� ȿ�� ��ø ����
         LoadUnlockedArtifacts();
 
-        // 2. 3���� �̸��� �����鸸 �̱� Ǯ�� ����
+
         PrepareArtifactPool();
 
         UpdateUI();
         gameOverPanel.SetActive(false);
-        SpawnNextFish(); // ���⼭ ȣ��Ǵ� �Լ� ���� �Ϸ�!
+        SpawnNextFish();
     }
 
     private void LoadUnlockedArtifacts()
@@ -94,13 +91,11 @@ public class GameManager : MonoBehaviour
             int level = GetArtifactLevel(art.artifactID);
             if (level > 0)
             {
-                // ������ŭ ȿ�� �ݺ� ���� (��ġ�� ��ø��)
                 for (int i = 0; i < level; i++)
                 {
                     ApplyArtifactEffect(art);
                 }
 
-                // UI ���� �� ���� ǥ��
                 CreateOrUpdateArtifactUI(art, level);
             }
         }
@@ -111,7 +106,6 @@ public class GameManager : MonoBehaviour
         availableArtifacts.Clear();
         foreach (ArtifactData art in artifactDatabase)
         {
-            // ������ 3 �̸��� ������ ���ڿ��� ���� ����
             if (GetArtifactLevel(art.artifactID) < 3)
             {
                 availableArtifacts.Add(art);
