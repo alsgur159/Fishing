@@ -31,6 +31,9 @@ public class FishingMinigame : MonoBehaviour
     [Header("Input Settings")]
     public InputAction reelAction;
 
+    [Header("Animation")]
+    public ReelController reelAnimController; // 릴 애니메이션 컨트롤러
+
     // 로직 변수
     private float fishPosition = 0.5f;
     private float fishDestination = 0.5f;
@@ -61,9 +64,7 @@ public class FishingMinigame : MonoBehaviour
         playerPosition = 0f;
         isFishing = true;
 
-        // [수정] 여기서 isPowerUpActive = false; 를 지웠습니다! 
-        // 그래야 이전 물고기 때 먹은 파워업이 다음 물고기까지 유지됩니다.
-
+        // 이전 물고기 때 먹은 파워업이 다음 물고기까지 유지되도록 초기화 제외
         if (Random.value <= chestSpawnChance)
         {
             isChestActive = true;
@@ -94,6 +95,13 @@ public class FishingMinigame : MonoBehaviour
         UpdateFishAI();
         CheckCollisions(); // 물고기 및 상자 판정 통합
         UpdateVisuals();
+        if (!isFishing) return;
+        // 릴 애니메이션에 상태와 배율 전달
+        if (reelAnimController != null)
+        {
+            // playerVelocity가 양수면 위로 이동, 음수면 아래로 이동, 0이면 정지 상태입니다.
+            reelAnimController.UpdateReelAnimation(playerVelocity);
+        }
     }
 
     private void UpdatePlayerBar()
@@ -163,15 +171,21 @@ public class FishingMinigame : MonoBehaviour
             }
         }
 
-        // 결과 판정
+        // 결과 판정 (게임 종료 시 릴 멈춤 기능 추가)
         if (catchProgress >= 100f)
         {
             isFishing = false;
+
+            if (reelAnimController != null) reelAnimController.StopReel(); // 릴 완벽 정지
+
             GameManager.Instance.AddScore(currentFish.score);
         }
         else if (catchProgress <= 0f)
         {
             isFishing = false;
+
+            if (reelAnimController != null) reelAnimController.StopReel(); // 릴 완벽 정지
+
             GameManager.Instance.FailFishing();
         }
     }
@@ -228,11 +242,10 @@ public class FishingMinigame : MonoBehaviour
             }
         }
     }
-    // [수정] 파워업 로직: 물고기 스폰과 상관없이 별도의 타이머로 작동합니다.
+
+    // 파워업 로직: 물고기 스폰과 상관없이 별도의 타이머로 작동
     public void TriggerInstantPowerUp()
     {
-        // 이미 파워업 중이라면 코루틴을 새로 시작하여 시간만 초기화하거나 중첩시킬 수 있습니다.
-        // 여기서는 간단하게 새로 시작하는 방식을 사용합니다.
         StopCoroutine("PowerUpRoutine");
         StartCoroutine("PowerUpRoutine");
     }
