@@ -129,31 +129,31 @@ public class GameManager : MonoBehaviour
 
         if (availableArtifacts.Count > 0 && roll < weightArtifact)
         {
-            Debug.Log("아티팩트 분기 진입");
+            // Debug.Log("아티팩트 분기 진입");
 
             ArtifactData artifact = ObtainArtifact();
-            Debug.Log("획득 아티팩트: " + (artifact != null ? artifact.artifactName : "null"));
-            Debug.Log("itemPopUi 연결 상태: " + (itemPopUi != null));
+            // Debug.Log("획득 아티팩트: " + (artifact != null ? artifact.artifactName : "null"));
+            // Debug.Log("itemPopUi 연결 상태: " + (itemPopUi != null));
 
             if (artifact != null && itemPopUi != null)
             {
-                Debug.Log("ShowArtifact 호출 직전");
+                // Debug.Log("ShowArtifact 호출 직전");
                 itemPopUi.ShowArtifact(artifact);
             }
         }
         else if (roll < weightArtifact + weightPowerUp)
         {
-            Debug.Log("파워업 분기 진입");
+            // Debug.Log("파워업 분기 진입");
             minigame.TriggerInstantPowerUp();
         }
         else if (roll < weightArtifact + weightPowerUp + weightScore)
         {
-            Debug.Log("점수 분기 진입");
+            // Debug.Log("점수 분기 진입");
             AddScore(Random.Range(50, 151));
         }
         else
         {
-            Debug.Log("꽝 분기 진입");
+            // Debug.Log("꽝 분기 진입");
         }
     }
     private ArtifactData ObtainArtifact()
