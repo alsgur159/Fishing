@@ -28,16 +28,17 @@ public class GameManager : MonoBehaviour
     private List<ArtifactData> availableArtifacts = new List<ArtifactData>();
 
     [Header("Chest Probability Weights")]
-    public int weightArtifact = 10;
-    public int weightPowerUp = 30;
-    public int weightScore = 40;
-    public int weightTrash = 20;
+    public int weightArtifact = 100;
+    public int weightPowerUp = 0;
+    public int weightScore = 0;
+    public int weightTrash = 0;
 
     [Header("UI References")]
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI livesText;
     public GameObject gameOverPanel;
     public TextMeshProUGUI finalScoreText;
+    public ItemPopUi itemPopUi;
 
     [Header("Artifact UI")]
     public Transform topBarUIParent;
@@ -51,6 +52,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        // PlayerPrefs.DeleteAll(); 테스트용 초기화 코드
+
         StartGameLoop();
     }
 
@@ -115,56 +118,66 @@ public class GameManager : MonoBehaviour
 
     public void OpenChestReward()
     {
+        Debug.Log("OpenChestReward 호출됨");
+        Debug.Log("availableArtifacts 개수: " + availableArtifacts.Count);
+
         int totalWeight = weightArtifact + weightPowerUp + weightScore + weightTrash;
         if (availableArtifacts.Count == 0) totalWeight -= weightArtifact;
 
         int roll = Random.Range(0, totalWeight);
+        Debug.Log("roll: " + roll);
 
         if (availableArtifacts.Count > 0 && roll < weightArtifact)
         {
-            ObtainArtifact();
+            Debug.Log("아티팩트 분기 진입");
+
+            ArtifactData artifact = ObtainArtifact();
+            Debug.Log("획득 아티팩트: " + (artifact != null ? artifact.artifactName : "null"));
+            Debug.Log("itemPopUi 연결 상태: " + (itemPopUi != null));
+
+            if (artifact != null && itemPopUi != null)
+            {
+                Debug.Log("ShowArtifact 호출 직전");
+                itemPopUi.ShowArtifact(artifact);
+            }
         }
         else if (roll < weightArtifact + weightPowerUp)
         {
+            Debug.Log("파워업 분기 진입");
             minigame.TriggerInstantPowerUp();
         }
         else if (roll < weightArtifact + weightPowerUp + weightScore)
         {
+            Debug.Log("점수 분기 진입");
             AddScore(Random.Range(50, 151));
-            Debug.Log("���ʽ� ���� ȹ��!");
         }
         else
         {
-            Debug.Log("��! �����Ⱑ ���Խ��ϴ�.");
+            Debug.Log("꽝 분기 진입");
         }
     }
-
-    private void ObtainArtifact()
+    private ArtifactData ObtainArtifact()
     {
-        if (availableArtifacts.Count == 0) return;
+        if (availableArtifacts.Count == 0) return null;
 
         int randomIndex = Random.Range(0, availableArtifacts.Count);
         ArtifactData acquired = availableArtifacts[randomIndex];
 
-        // 1. ������ �� ���� (�ִ� 3����)
         int currentLevel = GetArtifactLevel(acquired.artifactID);
         currentLevel++;
         SetArtifactLevel(acquired.artifactID, currentLevel);
 
-        // 2. ȿ�� ���� (��ø)
         ApplyArtifactEffect(acquired);
-
-        // 3. UI ������Ʈ
         CreateOrUpdateArtifactUI(acquired, currentLevel);
 
-        // 4. 3������ �Ǹ� �̱� Ǯ���� ����
         if (currentLevel >= 3)
         {
             availableArtifacts.RemoveAt(randomIndex);
-            Debug.Log($"{acquired.artifactName} ���� �޼�!");
+            Debug.Log($"{acquired.artifactName} 최대 레벨!");
         }
 
         UpdateUI();
+        return acquired;
     }
 
     private void ApplyArtifactEffect(ArtifactData acquired)

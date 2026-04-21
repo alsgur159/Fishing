@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class ItemManager : MonoBehaviour
 {
+    public static ItemManager Instance;
+
     public PlayerStat playerStat;
     public List<ItemData> itemList = new List<ItemData>();
 
@@ -14,12 +16,15 @@ public class ItemManager : MonoBehaviour
     public Sprite slimeReelIcon;
     public Sprite zephyrLureIcon;
 
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     private void Start()
     {
         if (playerStat == null)
-        {
-            playerStat = FindObjectOfType<PlayerStat>();
-        }
+            playerStat = Object.FindFirstObjectByType<PlayerStat>();
 
         CreateDefaultItems();
     }
@@ -80,22 +85,13 @@ public class ItemManager : MonoBehaviour
     public ItemData GiveRandomItem()
     {
         if (itemList.Count == 0)
-        {
-            Debug.LogError("아이템 리스트가 비어 있습니다.");
             return null;
-        }
-
-        if (playerStat == null)
-        {
-            Debug.LogError("PlayerStat이 연결되지 않았습니다.");
-            return null;
-        }
 
         int randomIndex = Random.Range(0, itemList.Count);
         ItemData randomItem = itemList[randomIndex];
 
-        playerStat.ApplyItem(randomItem);
-        Debug.Log("획득한 아이템: " + randomItem.itemName);
+        if (playerStat != null)
+            playerStat.ApplyItem(randomItem);
 
         return randomItem;
     }

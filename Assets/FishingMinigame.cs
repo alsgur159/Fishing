@@ -20,7 +20,7 @@ public class FishingMinigame : MonoBehaviour
 
     [Header("PowerUp Settings")]
     public float powerUpDuration = 3f;    // 파워업 지속 시간
-    public float powerUpSizeMultiplier = 1.5f; // 파워업 시 바 크기 증가 비율
+    public float powerUpSizeMultiplier = 1f; // 파워업 시 바 크기 증가 비율
 
     [Header("UI Elements")]
     public Slider progressBar;
@@ -83,7 +83,10 @@ public class FishingMinigame : MonoBehaviour
     private float GetCurrentZoneSize()
     {
         float size = currentFish.catchZoneSize + GameManager.Instance.bonusBarSize;
-        if (isPowerUpActive) size *= powerUpSizeMultiplier;
+
+        if (isPowerUpActive)
+            size *= powerUpSizeMultiplier;
+
         return size;
     }
 
@@ -193,12 +196,8 @@ public class FishingMinigame : MonoBehaviour
     private void CatchChest()
     {
         isChestActive = false;
-        chestUI.gameObject.SetActive(false); // 획득 시 상자 숨김
+        chestUI.gameObject.SetActive(false);
 
-        // 1. 파워업 아이템 발동 (일시적)
-        StartCoroutine(PowerUpRoutine());
-
-        // 2. 유물 획득 (영구적 강화)
         GameManager.Instance.OpenChestReward();
     }
 

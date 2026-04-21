@@ -29,7 +29,7 @@ public class ScoreManager : MonoBehaviour
         int baseScore = SCORE_PER_FISH * count;
         float bonus = 0f;
 
-        PlayerStat playerStat = FindObjectOfType<PlayerStat>();
+        PlayerStat playerStat = Object.FindFirstObjectByType<PlayerStat>();
         if (playerStat != null)
         {
             bonus = playerStat.scoreBonus;

@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections;
 
-public class ItemPopupUI : MonoBehaviour
+public class ItemPopUi : MonoBehaviour
 {
     public GameObject popupPanel;
     public Image itemIcon;
@@ -11,54 +11,77 @@ public class ItemPopupUI : MonoBehaviour
 
     private Coroutine currentCoroutine;
 
-    public void ShowItem(ItemData item)
+    private void Start()
     {
-        if (item == null) return;
-        
-        if (currentCoroutine != null)
-            StopCoroutine(currentCoroutine);
+        if (popupPanel != null)
+            popupPanel.SetActive(false);
+    }
+
+    public void ShowArtifact(ArtifactData artifact)
+    {
+        //Debug.Log("ShowArtifact ½ÇÇàµÊ");
+
+        if (artifact == null)
+        {
+            Debug.LogError("artifact°¡ null");
+            return;
+        }
+
+        if (popupPanel == null)
+        {
+            Debug.LogError("popupPanel ¿¬°á ¾È µÊ");
+            return;
+        }
+
+        if (itemIcon == null)
+        {
+            Debug.LogError("itemIcon ¿¬°á ¾È µÊ");
+            return;
+        }
+
+        if (itemNameText == null)
+        {
+            Debug.LogError("itemNameText ¿¬°á ¾È µÊ");
+            return;
+        }
 
         popupPanel.SetActive(true);
-       
         popupPanel.transform.localScale = Vector3.zero;
-   
-        itemIcon.sprite = item.icon;
-        itemNameText.text = item.itemName + " È¹µæ!";
+
+        itemIcon.gameObject.SetActive(true);
+        itemIcon.sprite = artifact.icon;
+        itemNameText.text = artifact.artifactName;
 
         currentCoroutine = StartCoroutine(PopupAnimation());
     }
 
-    IEnumerator PopupAnimation()
+    private IEnumerator PopupAnimation()
     {
-        float duration = 0.2f;
         float time = 0f;
+        float showDuration = 0.2f;
 
-
-        while (time < duration)
+        while (time < showDuration)
         {
             time += Time.deltaTime;
-            float t = time / duration;
-
-
+            float t = time / showDuration;
             float scale = Mathf.Lerp(0f, 1.1f, t);
             popupPanel.transform.localScale = new Vector3(scale, scale, 1f);
-
             yield return null;
         }
 
         popupPanel.transform.localScale = Vector3.one;
-      
+
         yield return new WaitForSeconds(1.5f);
 
         time = 0f;
-        while (time < 0.15f)
+        float hideDuration = 0.15f;
+
+        while (time < hideDuration)
         {
             time += Time.deltaTime;
-            float t = time / 0.15f;
-
+            float t = time / hideDuration;
             float scale = Mathf.Lerp(1f, 0f, t);
             popupPanel.transform.localScale = new Vector3(scale, scale, 1f);
-
             yield return null;
         }
 
