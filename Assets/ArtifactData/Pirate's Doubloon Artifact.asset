@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ArtifactData
   artifactID: art_bonusscore
   artifactName: Pirate's Doubloon
-  icon: {fileID: 0}
+  icon: {fileID: 1102954447258141712, guid: 6e22dcdd0f385c842b8c33c152a5acb1, type: 3}
   description: 
   effectType: 3
   effectValue: 100

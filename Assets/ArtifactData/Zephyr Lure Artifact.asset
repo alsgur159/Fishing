@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ArtifactData
   artifactID: art_speedup
   artifactName: Zephyr Lure
-  icon: {fileID: 0}
+  icon: {fileID: 6792731493790339919, guid: 7c7cfe14811444a4a952273a193717e4, type: 3}
   description: 
   effectType: 1
   effectValue: 5

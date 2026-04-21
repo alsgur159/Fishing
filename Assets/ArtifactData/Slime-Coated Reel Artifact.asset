@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ArtifactData
   artifactID: art_sizeup
   artifactName: Slime-Coated Reel
-  icon: {fileID: 0}
+  icon: {fileID: -2028857515318955806, guid: 267818fbe971b624da4bb527c7e46408, type: 3}
   description: 
   effectType: 0
   effectValue: 0.05
