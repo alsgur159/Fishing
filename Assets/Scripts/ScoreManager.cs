@@ -30,8 +30,9 @@ public class ScoreManager : MonoBehaviour
     }
     public int GetCurrentScore() => currentScore;
   
-    public void SaveRecord()
+    public void SaveRecord(int score)
     {
+        currentScore = score;
         List<FishingScore> records = LoadRecords();
         records.Add(new FishingScore(currentScore, System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")));
 
